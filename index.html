@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cevat Yiğit | Mobil Oyun Geliştirici & Bilgisayar Mühendisliği</title>
+    <meta name="description" content="Cevat Yiğit - Atatürk Üniversitesi Bilgisayar Mühendisliği Öğrencisi ve Mobil Oyun Geliştirici (CCKGAMES)">
+    <link rel="canonical" href="https://cevatyigit.com/">
+    
+    <!-- Open Graph / Sosyal Medya Paylaşım Etiketleri -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cevat Yiğit | Mobil Oyun Geliştirici & Bilgisayar Mühendisliği">
+    <meta property="og:description" content="Atatürk Üniversitesi Bilgisayar Mühendisliği Öğrencisi ve Mobil Oyun Geliştirici (CCKGAMES)">
+    <meta property="og:url" content="https://cevatyigit.com/">
+
+    <!-- Google Fonts: Sen -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* AYDINLIK MOD */
+        :root {
+            --bg-fallback: #d6c8c9;
+            --bg-gradient: 
+                radial-gradient(circle at 10% 15%, rgba(255, 0, 77, 0.11) 0%, transparent 45%),
+                radial-gradient(circle at 90% 85%, rgba(1, 78, 148, 0.11) 0%, transparent 45%),
+                linear-gradient(135deg, #e2e6ea 0%, #d8c8c9 28%, #c4acac 52%, #d8c8c9 76%, #e2e6ea 100%);
+            --card-gradient: linear-gradient(145deg, rgba(235, 240, 243, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%);
+            --card-border-light: #ffffff;
+            --nav-bg: rgba(236, 240, 243, 0.75);
+            --primary: #ff004d;
+            --primary-soft: rgba(255, 0, 77, 0.1);
+            --secondary: #014E94;
+            --text-dark: #16181d;
+            --text-muted: #525866;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-natural: 8px 8px 18px rgba(0, 0, 0, 0.1), -6px -6px 14px rgba(255, 255, 255, 0.8);
+            --shadow-hover: 12px 12px 24px rgba(0, 0, 0, 0.15), -6px -6px 16px rgba(255, 255, 255, 0.95);
+            --max-width: 1140px;
+        }
+
+        /* KARANLIK MOD (Varsayılan) */
+        [data-theme="dark"] {
+            --bg-fallback: #13151a;
+            --bg-gradient: 
+                radial-gradient(circle at 12% 18%, rgba(255, 0, 77, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 88% 82%, rgba(1, 78, 148, 0.18) 0%, transparent 45%),
+                linear-gradient(135deg, #121418 0%, #1a1c23 50%, #121418 100%);
+            --card-gradient: linear-gradient(145deg, #1e222b 0%, #171a21 100%);
+            --card-border-light: rgba(255, 255, 255, 0.07);
+            --nav-bg: rgba(22, 25, 32, 0.78);
+            --primary: #ff1a5e;
+            --primary-soft: rgba(255, 26, 94, 0.15);
+            --text-dark: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --shadow-natural: 8px 8px 20px rgba(0, 0, 0, 0.45), -4px -4px 12px rgba(255, 255, 255, 0.02);
+            --shadow-hover: 12px 12px 28px rgba(0, 0, 0, 0.6), -4px -4px 14px rgba(255, 255, 255, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: 'Sen', sans-serif;
+            background-color: var(--bg-fallback);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-muted);
+            font-size: 1.06rem;
+            line-height: 1.75;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        /* Üst Navigasyon (Glassmorphism) */
+        .navbar-wrapper {
+            position: sticky;
+            top: 16px;
+            z-index: 100;
+            padding: 0 20px;
+            margin-top: 16px;
+        }
+
+        .navbar {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            background: var(--nav-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--card-border-light);
+            border-radius: 999px;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-natural);
+        }
+
+        .nav-logo {
+            color: var(--text-dark);
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .nav-logo span {
+            color: var(--primary);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.94rem;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: var(--card-gradient);
+            border: 1px solid var(--card-border-light);
+            color: var(--text-dark);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-natural);
+            transition: transform 0.2s ease, color 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.08);
+            color: var(--primary);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        section {
+            padding: 4.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-subtitle {
+            color: var(--primary);
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 4.5px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 2.2rem;
+        }
+
+        /* Hero / Tanıtım Bölümü */
+        .hero {
+            padding: 4.5rem 0 4.5rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: var(--primary-soft);
+            color: var(--primary);
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.45; transform: scale(1.2); }
+        }
+
+        .hero-title {
+            color: var(--text-dark);
+            font-size: clamp(2.5rem, 5vw, 3.9rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.4rem;
+        }
+
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-bio {
+            max-width: 840px;
+            font-size: 1.12rem;
+            color: var(--text-muted);
+            margin-bottom: 1.8rem;
+        }
+
+        /* Teknoloji Rozetleri */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-pill {
+            background: var(--card-gradient);
+            border-top: 1px solid var(--card-border-light);
+            border-left: 1px solid var(--card-border-light);
+            padding: 7px 16px;
+            border-radius: 999px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            box-shadow: var(--shadow-natural);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tech-pill::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        /* Kart Izgaraları */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-gradient);
+            border-radius: 22px;
+            border-top: 2px solid var(--card-border-light);
+            border-left: 2px solid var(--card-border-light);
+            padding: 34px;
+            box-shadow: var(--shadow-natural);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: var(--primary-soft);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.4rem;
+        }
+
+        .card-icon-box svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        .card h3 {
+            color: var(--text-dark);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+        }
+
+        /* Topluluk ve Marka Kartları */
+        .community-card {
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            min-height: 270px;
+            padding: 32px 24px 24px;
+        }
+
+        .logo-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 1.25rem;
+        }
+
+        .community-card img.circle-logo {
+            width: 155px;
+            height: 155px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--card-border-light);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+            transition: transform 0.25s ease;
+        }
+
+        .community-card img.cck-logo {
+            max-width: 225px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: url(#cck-logo-bold) drop-shadow(0 3px 6px rgba(0, 0, 0, 0.12));
+            transition: transform 0.25s ease, filter 0.3s ease;
+        }
+
+        [data-theme="dark"] .community-card img.cck-logo {
+            filter: brightness(1.15) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+        }
+
+        .community-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .community-meta {
+            width: 100%;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .community-meta h4 {
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .community-meta span {
+            color: var(--primary);
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        /* Footer / İletişim Bölümü */
+        footer {
+            padding: 4rem 0 3rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.35fr;
+            gap: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .footer-title {
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .contact-list {
+            list-style: none;
+            margin-bottom: 1.75rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .contact-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .contact-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+
+        .copy-btn {
+            background: var(--primary-soft);
+            color: var(--primary);
+            border: none;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .social-label {
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 0.7rem;
+            list-style: none;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 15px;
+            white-space: nowrap;
+            background: var(--card-gradient);
+            border-radius: 999px;
+            border-top: 1px solid var(--card-border-light);
+            border-left: 1px solid var(--card-border-light);
+            box-shadow: var(--shadow-natural);
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-2px);
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .social-links svg {
+            width: 17px;
+            height: 17px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Mobil Uyumluluk (Responsive) */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            .navbar {
+                padding: 10px 16px;
+            }
+            .hero {
+                padding: 3rem 0 2.5rem;
+            }
+            section {
+                padding: 3rem 0;
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .card {
+                padding: 24px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            .social-links {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ÜST MENÜ -->
+    <div class="navbar-wrapper">
+        <nav class="navbar">
+            <a href="#" class="nav-logo">Cevat Yiğit<span>.</span></a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#iletisim">İletişim</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle" aria-label="Temayı Değiştir" title="Gece / Gündüz Modu">
+                    <!-- Ay İkonu (Aydınlık modda görünür) -->
+                    <svg id="moonIcon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <!-- Güneş İkonu (Koyu modda görünür) -->
+                    <svg id="sunIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <main class="container">
+        <!-- GİRİŞ BÖLÜMÜ -->
+        <section class="hero">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                Merhaba
+            </div>
+            <h1 class="hero-title">Ben Cevat Yiğit<span>.</span></h1>
+            <p class="hero-bio">
+                Atatürk Üniversitesi Bilgisayar Mühendisliği öğrencisiyim. Unity ve C# ile mobil oyunlar geliştiriyor, CCKGAMES çatısı altında kendi projelerimi hayata geçiriyorum. Yazılım geliştirme tutkumun yanı sıra teknoloji topluluklarında (Softech, GDSC) yönetim ekiplerinde yer alıyor, ortak çalışma fırsatları ve iş birlikleri geliştiriyorum. Teknik yetkinliklerimi ekip ruhuyla birleştirerek yazılım ekosistemine değer katmayı hedefliyorum.
+            </p>
+
+            <!-- Teknoloji Rozetleri -->
+            <div class="tech-stack">
+                <span class="tech-pill">Unity</span>
+                <span class="tech-pill">C#</span>
+                <span class="tech-pill">Mobil Oyun Mekanikleri</span>
+                <span class="tech-pill">Performans Optimizasyonu</span>
+            </div>
+        </section>
+
+        <!-- UZMANLIK ALANLARIM -->
+        <section id="uzmanlik">
+            <span class="section-subtitle">Uzmanlık Alanlarım</span>
+            <div class="grid-2">
+                <!-- Kart 1 -->
+                <div class="card">
+                    <div class="card-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="6" width="20" height="12" rx="3"></rect>
+                            <path d="M6 12h4m-2-2v4"></path>
+                            <circle cx="15" cy="11" r="1" fill="currentColor"></circle>
+                            <circle cx="17" cy="13" r="1" fill="currentColor"></circle>
+                        </svg>
+                    </div>
+                    <h3>Mobil Oyun Geliştirme</h3>
+                    <p>
+                        Unity ve C# kullanarak mobil oyunlar geliştiriyorum. Oyun mekanikleri, oyun sistemleri ve performans optimizasyonu üzerine çalışarak fikirlerimi oynanabilir projelere dönüştürüyorum. Bu projelerimi Google Play Store’da CCKGAMES geliştirici hesabı üzerinden paylaşıyorum.
+                    </p>
+                </div>
+
+                <!-- Kart 2 -->
+                <div class="card">
+                    <div class="card-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>Sponsorluk ve İş Birlikleri</h3>
+                    <p>
+                        Google Developer Student Clubs ve Softech Kulübü yönetim ekiplerinde sponsorluk ve iş birlikleri alanlarında görev alıyorum. Kurumlarla iletişim kurmaya, ortak çalışma fırsatları oluşturmaya ve projelerin hayata geçirilmesine katkı sağlamaya önem veriyorum.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOPLULUKLAR -->
+        <section id="topluluklar">
+            <span class="section-subtitle">Topluluklar &amp; Markalar</span>
+            <div class="grid-3">
+                <div class="card community-card">
+                    <div class="logo-wrapper">
+                        <img class="circle-logo" src="softechlogo.jpeg" alt="Softech Kulübü">
+                    </div>
+                    <div class="community-meta">
+                        <h4>Softech Kulübü</h4>
+                        <span>Sponsorluk &amp; İş Birlikleri</span>
+                    </div>
+                </div>
+
+                <div class="card community-card">
+                    <div class="logo-wrapper">
+                        <img class="circle-logo" src="gdsclogo.png" alt="Google Developer Student Clubs">
+                    </div>
+                    <div class="community-meta">
+                        <h4>Google Developer Student Clubs</h4>
+                        <span>Sponsorluk &amp; İş Birlikleri</span>
+                    </div>
+                </div>
+
+                <div class="card community-card">
+                    <div class="logo-wrapper">
+                        <img class="cck-logo" src="CCKGAMESlogo.png" alt="CCKGAMES">
+                    </div>
+                    <div class="community-meta">
+                        <h4>CCKGAMES</h4>
+                        <span>Mobil Oyun Geliştirme</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER / İLETİŞİM -->
+    <footer id="iletisim" class="container">
+        <div class="footer-grid">
+            <div>
+                <h3 class="footer-title">Hakkımda</h3>
+                <p>
+                    Bilgisayar Mühendisliği öğrencisi ve mobil oyun geliştirici olarak dijital dünyada öğrenmeye ve üretmeye devam ediyorum. Birlikte çalışmak, sponsorluk görüşmeleri veya projelerim hakkında konuşmak için benimle iletişime geçebilirsiniz.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="footer-title">İletişim</h3>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <a href="mailto:contact@cevatyigit.com">contact@cevatyigit.com</a>
+                        <button class="copy-btn" id="copyEmailBtn" type="button">Kopyala</button>
+                    </li>
+                    <li class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>Atatürk Üniversitesi, Erzurum</span>
+                    </li>
+                </ul>
+
+                <p class="social-label">Bağlantılarım</p>
+                <ul class="social-links">
+                    <li>
+                        <a href="https://www.linkedin.com/in/cevat-yigit" target="_blank" rel="noopener nofollow">
+                            <svg viewBox="0 0 24 24"><path d="M19.7,3H4.3C3.582,3,3,3.582,3,4.3v15.4C3,20.418,3.582,21,4.3,21h15.4c0.718,0,1.3-0.582,1.3-1.3V4.3 C21,3.582,20.418,3,19.7,3z M8.339,18.338H5.667v-8.59h2.672V18.338z M7.004,8.574c-0.857,0-1.549-0.694-1.549-1.548 c0-0.855,0.691-1.548,1.549-1.548c0.854,0,1.547,0.694,1.547,1.548C8.551,7.881,7.858,8.574,7.004,8.574z M18.339,18.338h-2.669 v-4.177c0-0.996-0.017-2.278-1.387-2.278c-1.389,0-1.601,1.086-1.601,2.206v4.249h-2.667v-8.59h2.559v1.174h0.037 c0.356-0.675,1.227-1.387,2.526-1.387c2.703,0,3.203,1.779,3.203,4.092V18.338z"></path></svg>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.github.com/yigitcvt" target="_blank" rel="noopener nofollow">
+                            <svg viewBox="0 0 24 24"><path d="M12,2C6.477,2,2,6.477,2,12c0,4.419,2.865,8.166,6.839,9.489c0.5,0.09,0.682-0.218,0.682-0.484 c0-0.236-0.009-0.866-0.014-1.699c-2.782,0.602-3.369-1.34-3.369-1.34c-0.455-1.157-1.11-1.465-1.11-1.465 c-0.909-0.62,0.069-0.608,0.069-0.608c1.004,0.071,1.532,1.03,1.532,1.03c0.891,1.529,2.341,1.089,2.91,0.833 c0.091-0.647,0.349-1.086,0.635-1.337c-2.22-0.251-4.555-1.111-4.555-4.943c0-1.091,0.39-1.984,1.03-2.682 C6.546,8.54,6.202,7.524,6.746,6.148c0,0,0.84-0.269,2.75,1.025C10.295,6.95,11.15,6.84,12,6.836 c0.85,0.004,1.705,0.114,2.504,0.336c1.909-1.294,2.748-1.025,2.748-1.025c0.546,1.376,0.202,2.394,0.1,2.646 c0.64,0.699,1.026,1.591,1.026,2.682c0,3.841-2.337,4.687-4.565,4.935c0.359,0.307,0.679,0.917,0.679,1.852 c0,1.335-0.012,2.415-0.012,2.741c0,0.269,0.18,0.579,0.688,0.481C19.138,20.161,22,16.416,22,12C22,6.477,17.523,2,12,2z"></path></svg>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank" rel="noopener nofollow">
+                            <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a1.996 1.996 0 0 1-.61-1.444V3.258c0-.56.233-1.081.609-1.444zm11.618 11.618l2.845 2.845-10.97 6.334 8.125-9.179zm3.998-2.864l2.164 1.25c.815.47.815 1.694 0 2.164l-2.164 1.25-3.005-2.332 3.005-2.332zM7.102 1.389l10.97 6.334-2.845 2.845-8.125-9.179z"></path></svg>
+                            CCKGAMES
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/yigitcvt" target="_blank" rel="noopener nofollow">
+                            <svg viewBox="0 0 24 24"><path d="M12,4.622c2.403,0,2.688,0.009,3.637,0.052c0.877,0.04,1.354,0.187,1.671,0.31c0.42,0.163,0.72,0.358,1.035,0.673 c0.315,0.315,0.51,0.615,0.673,1.035c0.123,0.317,0.27,0.794,0.31,1.671c0.043,0.949,0.052,1.234,0.052,3.637 s-0.009,2.688-0.052,3.637c-0.04,0.877-0.187,1.354-0.31,1.671c-0.163,0.42-0.358,0.72-0.673,1.035 c-0.315,0.315-0.615,0.51-1.035,0.673c-0.317,0.123-0.794,0.27-1.671,0.31c-0.949,0.043-1.233,0.052-3.637,0.052 s-2.688-0.009-3.637-0.052c-0.877-0.04-1.354-0.187-1.671-0.31c-0.42-0.163-0.72-0.358-1.035-0.673 c-0.315-0.315-0.51-0.615-0.673-1.035c-0.123-0.317-0.27-0.794-0.31-1.671C4.631,14.688,4.622,14.403,4.622,12 s0.009-2.688,0.052-3.637c0.04-0.877,0.187-1.354,0.31-1.671c0.163-0.42,0.358-0.72,0.673-1.035 c0.315-0.315,0.615-0.51,1.035-0.673c0.317-0.123,0.794-0.27,1.671-0.31C9.312,4.631,9.597,4.622,12,4.622 M12,3 C9.556,3,9.249,3.01,8.289,3.054C7.331,3.098,6.677,3.25,6.105,3.472C5.513,3.702,5.011,4.01,4.511,4.511 c-0.5,0.5-0.808,1.002-1.038,1.594C3.25,6.677,3.098,7.331,3.054,8.289C3.01,9.249,3,9.556,3,12c0,2.444,0.01,2.751,0.054,3.711 c0.044,0.958,0.196,1.612,0.418,2.185c0.23,0.592,0.538,1.094,1.038,1.594c0.5,0.5,1.002,0.808,1.594,1.038 c0.572,0.222,1.227,0.375,2.185,0.418C9.249,20.99,9.556,21,12,21s2.751-0.01,3.711-0.054c0.958-0.044,1.612-0.196,2.185-0.418 c0.592-0.23,1.094-0.538,1.594-1.038c0.5-0.5,0.808-1.002,1.038-1.594c0.222-0.572,0.375-1.227,0.418-2.185 C20.99,14.751,21,14.444,21,12s-0.01-2.751-0.054-3.711c-0.044-0.958-0.196-1.612-0.418-2.185c-0.23-0.592-0.538-1.094-1.038-1.594 c-0.5-0.5-1.002-0.808-1.594-1.038c-0.572-0.222-1.227-0.375-2.185-0.418C14.751,3.01,14.444,3,12,3L12,3z M12,7.378 c-2.552,0-4.622,2.069-4.622,4.622S9.448,16.622,12,16.622s4.622-2.069,4.622-4.622S14.552,7.378,12,7.378z M12,15 c-1.657,0-3-1.343-3-3s1.343-3,3-3s3,1.343,3,3S13.657,15,12,15z M16.804,6.116c-0.596,0-1.08,0.484-1.08,1.08 s0.484,1.08,1.08,1.08c0.596,0,1.08-0.484,1.08-1.08S17.401,6.116,16.804,6.116z"></path></svg>
+                            Instagram
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2026 Cevat Yiğit. Tüm hakları saklıdır.
+        </div>
+    </footer>
+
+    <!-- SVG Filtre -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
+        <defs>
+            <filter id="cck-logo-bold">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=".299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0"></feColorMatrix>
+                <feComponentTransfer color-interpolation-filters="sRGB">
+                    <feFuncR type="table" tableValues="0 0.14"></feFuncR>
+                    <feFuncG type="table" tableValues="0 0.15"></feFuncG>
+                    <feFuncB type="table" tableValues="0 0.18"></feFuncB>
+                    <feFuncA type="table" tableValues="1 1"></feFuncA>
+                </feComponentTransfer>
+                <feComposite in2="SourceGraphic" operator="in"></feComposite>
+            </filter>
+        </defs>
+    </svg>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlEl = document.documentElement;
+        const moonIcon = document.getElementById('moonIcon');
+        const sunIcon = document.getElementById('sunIcon');
+
+        function updateThemeIcons(theme) {
+            if (theme === 'dark') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        }
+
+        // Varsayılan olarak 'dark' modda başlat, kullanıcı değiştirirse kaydet
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlEl.setAttribute('data-theme', savedTheme);
+        updateThemeIcons(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlEl.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcons(newTheme);
+        });
+
+        // Tek Tıkla E-posta Kopyalama
+        const copyBtn = document.getElementById('copyEmailBtn');
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText('contact@cevatyigit.com').then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Kopyalandı!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
