@@ -13,7 +13,7 @@
     <!-- Open Graph / Sosyal Medya Paylaşım Etiketleri -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Cevat Yiğit | Mobil Oyun Geliştirici & Bilgisayar Mühendisliği">
-    <meta property="og:description" content="Atatürk Üniversitesi Bilgisayar Mühendisliği Öğrencisi ve Mobil Oyun Geliştirici (CCKGAMES)">
+    <meta property="og:description" content="Cevat Yiğit - Atatürk Üniversitesi Bilgisayar Mühendisliği Öğrencisi ve Mobil Oyun Geliştirici (CCKGAMES)">
     <meta property="og:url" content="https://cevatyigit.com/">
 
     <!-- Google Fonts: Sen -->
@@ -21,29 +21,37 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Sayfa yüklenirken beyaz parlamayı önlemek için anında koyu tema uygulatıcı script -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
     <style>
-        /* AYDINLIK MOD */
+        /* AYDINLIK MOD (Mat gradyan arka plan ve yumuşak mat kenarlar) */
         :root {
-            --bg-fallback: #d6c8c9;
+            --bg-fallback: #d4d8de;
             --bg-gradient: 
-                radial-gradient(circle at 10% 15%, rgba(255, 0, 77, 0.11) 0%, transparent 45%),
-                radial-gradient(circle at 90% 85%, rgba(1, 78, 148, 0.11) 0%, transparent 45%),
-                linear-gradient(135deg, #e2e6ea 0%, #d8c8c9 28%, #c4acac 52%, #d8c8c9 76%, #e2e6ea 100%);
-            --card-gradient: linear-gradient(145deg, rgba(235, 240, 243, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%);
-            --card-border-light: #ffffff;
-            --nav-bg: rgba(236, 240, 243, 0.75);
-            --primary: #ff004d;
-            --primary-soft: rgba(255, 0, 77, 0.1);
+                radial-gradient(circle at 15% 20%, rgba(214, 0, 61, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 85% 80%, rgba(1, 78, 148, 0.04) 0%, transparent 50%),
+                linear-gradient(135deg, #e4e8ee 0%, #d8dde5 50%, #ccd3df 100%);
+            --card-gradient: linear-gradient(145deg, #edf1f5 0%, #e1e6ec 100%);
+            --card-border-light: rgba(255, 255, 255, 0.4);
+            --nav-bg: rgba(230, 235, 241, 0.85);
+            --primary: #d6003d;
+            --primary-soft: rgba(214, 0, 61, 0.08);
             --secondary: #014E94;
-            --text-dark: #16181d;
-            --text-muted: #525866;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --shadow-natural: 8px 8px 18px rgba(0, 0, 0, 0.1), -6px -6px 14px rgba(255, 255, 255, 0.8);
-            --shadow-hover: 12px 12px 24px rgba(0, 0, 0, 0.15), -6px -6px 16px rgba(255, 255, 255, 0.95);
+            --text-dark: #1e232a;
+            --text-muted: #606770;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow-natural: 6px 6px 16px rgba(0, 0, 0, 0.04), -4px -4px 12px rgba(255, 255, 255, 0.6);
+            --shadow-hover: 10px 10px 22px rgba(0, 0, 0, 0.07), -4px -4px 14px rgba(255, 255, 255, 0.75);
             --max-width: 1140px;
         }
 
-        /* KARANLIK MOD (Varsayılan) */
+        /* KARANLIK MOD (Varsayılan / İlk Açılış) */
         [data-theme="dark"] {
             --bg-fallback: #13151a;
             --bg-gradient: 
@@ -342,7 +350,7 @@
             text-align: center;
             min-height: 270px;
             padding: 32px 24px 24px;
-            text-decoration: none; /* Link yapılırsa alt çizgi olmasın */
+            text-decoration: none;
         }
 
         .logo-wrapper {
@@ -360,7 +368,7 @@
             object-fit: cover;
             border-radius: 50%;
             border: 3px solid var(--card-border-light);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
             transition: transform 0.25s ease;
         }
 
@@ -369,7 +377,7 @@
             width: 100%;
             height: auto;
             object-fit: contain;
-            filter: url(#cck-logo-bold) drop-shadow(0 3px 6px rgba(0, 0, 0, 0.12));
+            filter: url(#cck-logo-bold) drop-shadow(0 3px 6px rgba(0, 0, 0, 0.06));
             transition: transform 0.25s ease, filter 0.3s ease;
         }
 
@@ -649,7 +657,8 @@
         <section id="topluluklar">
             <span class="section-subtitle">Topluluklar &amp; Markalar</span>
             <div class="grid-3">
-                <div class="card community-card">
+                <!-- Tıklanabilir Softech Kartı -->
+                <a href="https://www.linkedin.com/company/softech-atat%C3%BCrk-%C3%BCniversitesi" target="_blank" rel="noopener noreferrer" class="card community-card">
                     <div class="logo-wrapper">
                         <img class="circle-logo" src="softechlogo.jpeg" alt="Softech Kulübü">
                     </div>
@@ -657,9 +666,10 @@
                         <h4>Softech Kulübü</h4>
                         <span>Sponsorluk &amp; İş Birlikleri</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card community-card">
+                <!-- Tıklanabilir GDSC Kartı -->
+                <a href="https://www.linkedin.com/company/gdg-on-campus-ataturk-university" target="_blank" rel="noopener noreferrer" class="card community-card">
                     <div class="logo-wrapper">
                         <img class="circle-logo" src="gdsclogo.png" alt="Google Developer Student Clubs">
                     </div>
@@ -667,7 +677,7 @@
                         <h4>Google Developer Student Clubs</h4>
                         <span>Sponsorluk &amp; İş Birlikleri</span>
                     </div>
-                </div>
+                </a>
 
                 <!-- Tıklanabilir CCKGAMES Kartı -->
                 <a href="https://play.google.com/store/apps/dev?id=6615378974092116325&hl=tr" target="_blank" rel="noopener noreferrer" class="card community-card">
@@ -780,10 +790,8 @@
             }
         }
 
-        // Varsayılan olarak 'dark' modda başlat, kullanıcı değiştirirse kaydet
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        htmlEl.setAttribute('data-theme', savedTheme);
-        updateThemeIcons(savedTheme);
+        const currentTheme = htmlEl.getAttribute('data-theme') || 'dark';
+        updateThemeIcons(currentTheme);
 
         themeToggle.addEventListener('click', () => {
             const currentTheme = htmlEl.getAttribute('data-theme');
